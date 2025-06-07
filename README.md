@@ -44,7 +44,7 @@ minikube start --driver=docker
 ### Check Nodes
 
 ```bash
-kubectl get nodes
+kubectl get nodes -o wide
 ```
 
 ### Get All Pods in All Namespaces
@@ -64,6 +64,8 @@ kubectl cluster-info
 ```bash
 kubectl get svc -A
 ```
+
+### reuse 
 
 ---
 
@@ -114,6 +116,10 @@ kubectl describe pod <pod-name> -n <namespace>
 ```bash
 kubectl delete pod <pod-name> -n <namespace>
 ```
+or
+```bash
+kubectl delete -f <file.yaml>
+```
 
 ### Logs for a Pod
 
@@ -124,3 +130,25 @@ kubectl logs <pod-name> -n <namespace>
 ---
 
 For more, visit the [official Minikube documentation](https://minikube.sigs.k8s.io/docs/) and [Kubernetes docs](https://kubernetes.io/docs/).
+
+### Labels
+Labels are key-value pairs attached to Kubernetes objects such as Pods, ReplicaSets, Nodes, Namespaces and Persistent Volumes. 
+- `==` or `!= `
+- `in` , `notin` , `
+
+###  ReplicationControllers
+Ensures a specified number of replicas of a Pod are running at any given time the desired version of the application container, by constantly comparing the actual state with the desired state of the managed application.
+The default recommended controller is the `Deployment` which configures a `ReplicaSet` controller to manage application Pods' lifecycle.
+
+### ReplicaSets
+With the help of the ReplicaSet, we can scale the number of Pods running a specific application container image. Scaling can be accomplished manually or through the use of an autoscaler. `redis-rs.yaml`
+```bash
+kubectl create -f redis-rs.yaml
+```
+
+A Deployment automatically creates a ReplicaSet, which then creates a Pod. 
+
+### Deployment
+the default RollingUpdate strategy  through rollouts and rollbacks
+Recreate.
+`deploy.yaml`
